@@ -68,8 +68,7 @@ pipeline {
         stage{
             steps{
                 script{
-                    sh 'scp  /home/ubuntu/.jenkins/workspace/NCS-pipeline/target/helloworld-1.0.0.6.war.war  
-                                        ubuntu@10.0.10.19:/var/lib/tomcat8/webapps/prodenv.war'
+                    sh 'scp  /home/ubuntu/.jenkins/workspace/NCS-pipeline/target/helloworld-1.0.0.6.war.war ubuntu@10.0.10.19:/var/lib/tomcat8/webapps/prodenv.war'
                 }
             }
         }
