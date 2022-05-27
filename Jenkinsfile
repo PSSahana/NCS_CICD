@@ -66,11 +66,17 @@ pipeline {
           }
         }
         
-	stage('Deploy tomcat') {
-        sshagent(['tomcat-deploy']) {
-            sh 'scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/NCS-pipeline/target/*.war ubuntu@10.0.10.19:/opt/tomcat/webapps'
-        }
-   	}
+	    stage('Deploy tomcat') {
+            steps{
+                script{
+                    sshagent(['tomcat-deploy']) {
+                    sh 'scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/NCS-pipeline/target/*.war ubuntu@10.0.10.19:/opt/tomcat/webapps'
+                    }
+                }
+            }
+            
+        
+   	    }
 
         stage("Publish to Nexus Repository Manager") {
             steps {
