@@ -41,7 +41,17 @@ pipeline {
                 sh 'mvn test'
             }
         }
-	
+        stage('Deploy tomcat') {
+            steps{
+                script{
+                    sshagent(['tomcat-deploy']) {
+                    sh 'scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/NCS-pipeline/target/*.war ubuntu@10.0.10.19:/opt/tomcat/webapps'
+                    }
+                }
+            }
+            
+        
+   	    }
         stage('CODE ANALYSIS with SONARQUBE') {
           
 		  environment {
@@ -66,17 +76,7 @@ pipeline {
           }
         }
         
-	    stage('Deploy tomcat') {
-            steps{
-                script{
-                    sshagent(['tomcat-deploy']) {
-                    sh 'scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/NCS-pipeline/target/*.war ubuntu@10.0.10.19:/opt/tomcat/webapps'
-                    }
-                }
-            }
-            
-        
-   	    }
+	    
 
         stage("Publish to Nexus Repository Manager") {
             steps {
