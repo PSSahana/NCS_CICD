@@ -45,7 +45,7 @@ pipeline {
         stage('CODE ANALYSIS with SONARQUBE') {
           
 		  environment {
-             scannerHome = tool 'sonarscanner4'
+             scannerHome = tool name: 'sonarscanner4', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
           }
 
           steps {
